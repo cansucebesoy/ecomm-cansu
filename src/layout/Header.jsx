@@ -1,12 +1,9 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { NavBar } from "@/components/NavBar/NavBar";
 
 export const Header = () => {
   return (
     <div>
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      <NavBar />
     </div>
   );
 };
