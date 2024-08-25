@@ -1,3 +1,3 @@
 export const Shop = () => {
-  return <div> SHOP PAGE</div>;
+  return <div>SHOP PAGE</div>;
 };
