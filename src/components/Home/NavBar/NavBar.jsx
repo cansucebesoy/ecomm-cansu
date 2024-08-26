@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const MenuLinks = [
   {
@@ -16,10 +17,10 @@ const MenuLinks = [
   {
     id: 2,
     name: "Shop",
-    link: "/Shop",
+    link: "/shop",
     dropdown: [
-      { id: 1, name: "Man", link: "/Shop" },
-      { id: 2, name: "Woman", link: "/Shop" },
+      { id: 1, name: "Man", link: "/shop" },
+      { id: 2, name: "Woman", link: "/shop" },
     ],
   },
   {
@@ -46,7 +47,10 @@ export const NavBar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const history = useHistory();
+
   const handleClick = () => {
+    history.push("/shop");
     console.log("navigate to shop");
   };
 
@@ -57,7 +61,7 @@ export const NavBar = () => {
           <div className=" block items-center lg:flex lg:justify-between lg:gap-4">
             <a
               className="text-primary tracking-widest font-semibold text-2xl"
-              href="#"
+              href=""
             >
               BRANDNAME
             </a>
@@ -72,8 +76,7 @@ export const NavBar = () => {
                   >
                     <a
                       className="text-secondary px-4 inline-block hover:text-black"
-                      href="data.link"
-                      onClick={handleClick}
+                      href={data.link}
                     >
                       {data.name}
                       {data.name === "Shop" && <span>&#x25BE;</span>}
@@ -82,9 +85,7 @@ export const NavBar = () => {
                       <ul className="absolute">
                         {data.dropdown.map((item) => (
                           <li key={item.id}>
-                            <a onClick={handleClick} href={item.link}>
-                              {item.name}
-                            </a>
+                            <a href={item.link}>{item.name}</a>
                           </li>
                         ))}
                       </ul>
