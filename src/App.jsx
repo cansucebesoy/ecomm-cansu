@@ -7,12 +7,12 @@ import { PageContent } from "./layout/PageContent";
 
 const routes = [
   {
-    path: "/",
-    component: <HomePage />,
-  },
-  {
     path: "/shop",
     component: <Shop />,
+  },
+  {
+    path: "/",
+    component: <HomePage />,
   },
 ];
 

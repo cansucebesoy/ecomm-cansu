@@ -1,17 +1,17 @@
-import { Clients } from "@/components/Clients/Clients";
-import { EditorsPick } from "@/components/ProductCard/EditorsPick";
-import { ProductCard } from "@/components/ProductCard/ProductCard";
-import { Footer } from "@/layout/Footer";
-import { Header } from "@/layout/Header";
+import { Clients } from "@/components/Commons/Clients";
+import { EditorsPick } from "@/components/Home/EditorsPick/EditorsPick";
+import { ProductCardList } from "@/components/Home/ProductCardList/ProductCardList";
+import { Hero } from "@/components/Home/Hero/Hero";
+import { Bestsellers } from "@/components/Home/Bestsellers/Bestsellers";
 
 export const HomePage = () => {
   return (
     <div>
-      <Header />
-      <Clients />
+      <Hero />
       <EditorsPick />
-      <ProductCard />
-      <Footer />
+      <Bestsellers />
+      <ProductCardList />
+      <Clients />
     </div>
   );
 };
