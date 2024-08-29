@@ -16,7 +16,7 @@ export const Shop = () => {
     <div>
       <BreadcrumbComponent />
       <ShopHero />
-      <div className="container py-8 flex flex-col justify-center md:flex-row md:justify-between">
+      <div className="container py-8 flex flex-col justify-center md:flex-row md:justify-between gap-8">
         <ProductNumber />
         <Views />
         <div className="flex justify-center">

@@ -4,11 +4,16 @@ import "./App.css";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { Shop } from "./pages/Shop/Shop";
 import { PageContent } from "./layout/PageContent";
+import { ProductDetail } from "./pages/ProductDetail/ProductDetail";
 
 const routes = [
   {
     path: "/shop",
     component: <Shop />,
+  },
+  {
+    path: "/product/:productId",
+    component: <ProductDetail />,
   },
   {
     path: "/",

@@ -51,7 +51,6 @@ export const NavBar = () => {
 
   const handleClick = () => {
     history.push("/shop");
-    console.log("navigate to shop");
   };
 
   return (
@@ -107,10 +106,10 @@ export const NavBar = () => {
                 </a>
               </div>
               <div className="space-x-4 lg:flex ">
-                <a href="">
+                <a className="text-tertiary" href="">
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </a>
-                <a href="">
+                <a className="text-tertiary" href="">
                   <FontAwesomeIcon icon={faCartShopping} />
                 </a>
                 <a href="">
