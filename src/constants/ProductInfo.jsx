@@ -1,6 +1,6 @@
 export const productInfo = [
   {
-    imageLink: "./product-list-1.jpg",
+    imageLink: "/product-list-1.jpg",
     footerTitle: "Graphic Design",
     footerDescription: "English Department",
     originalPrice: "$16.48",
@@ -8,7 +8,7 @@ export const productInfo = [
     footerImg: "./product-colors.svg",
   },
   {
-    imageLink: "./product-list-1.jpg",
+    imageLink: "/product-list-1.jpg",
     footerTitle: "Graphic Design",
     footerDescription: "English Department",
     originalPrice: "$16.48",
@@ -16,7 +16,7 @@ export const productInfo = [
     footerImg: "./product-colors.svg",
   },
   {
-    imageLink: "./product-list-1.jpg",
+    imageLink: "/product-list-1.jpg",
     footerTitle: "Graphic Design",
     footerDescription: "English Department",
     originalPrice: "$16.48",
@@ -24,7 +24,7 @@ export const productInfo = [
     footerImg: "./product-colors.svg",
   },
   {
-    imageLink: "./product-list-1.jpg",
+    imageLink: "/product-list-1.jpg",
     footerTitle: "Graphic Design",
     footerDescription: "English Department",
     originalPrice: "$16.48",
@@ -32,7 +32,7 @@ export const productInfo = [
     footerImg: "./product-colors.svg",
   },
   {
-    imageLink: "./product-list-1.jpg",
+    imageLink: "/product-list-1.jpg",
     footerTitle: "Graphic Design",
     footerDescription: "English Department",
     originalPrice: "$16.48",
@@ -40,7 +40,7 @@ export const productInfo = [
     footerImg: "./product-colors.svg",
   },
   {
-    imageLink: "./product-list-1.jpg",
+    imageLink: "/product-list-1.jpg",
     footerTitle: "Graphic Design",
     footerDescription: "English Department",
     originalPrice: "$16.48",
@@ -48,7 +48,7 @@ export const productInfo = [
     footerImg: "./product-colors.svg",
   },
   {
-    imageLink: "./product-list-1.jpg",
+    imageLink: "/product-list-1.jpg",
     footerTitle: "Graphic Design",
     footerDescription: "English Department",
     originalPrice: "$16.48",
@@ -56,7 +56,7 @@ export const productInfo = [
     footerImg: "./product-colors.svg",
   },
   {
-    imageLink: "./product-list-1.jpg",
+    imageLink: "/product-list-1.jpg",
     footerTitle: "Graphic Design",
     footerDescription: "English Department",
     originalPrice: "$16.48",
