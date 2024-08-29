@@ -5,7 +5,10 @@ import { ProductCardList } from "@/components/Home/ProductCardList/ProductCardLi
 import { Bestsellers } from "@/components/Home/Bestsellers/Bestsellers";
 import { AdditionalInfo } from "@/components/Shop/AdditionalInfo/AdditionalInfo";
 import { AdditionalText } from "@/components/Shop/AdditionalText/AdditionalText";
-
+import { Button } from "@/components/ui/button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 export const ProductDetail = () => {
   const { productId } = useParams();
 
@@ -40,15 +43,25 @@ export const ProductDetail = () => {
             laudantium natus animi harum et.
           </p>
           <div className="flex gap-2 mb-6">
-            <img src={product.footerImg} alt="" />
             <div className="h-6 w-6 bg-orange-400 rounded-full"></div>
             <div className="h-6 w-6 bg-green-400 rounded-full"></div>
             <div className="h-6 w-6 bg-blue-400 rounded-full"></div>
             <div className="h-6 w-6 bg-gray-500 rounded-full"></div>
           </div>
-          <button className="px-6 py-2 bg-blue-600 text-white rounded-md">
-            Select Options
-          </button>
+          <div className="flex gap-4">
+            <Button className="w-1/3">Select Options</Button>
+            <div className="space-x-4 flex items-center ">
+              <a className="text-tertiary" href="">
+                <FontAwesomeIcon icon={faCartShopping} />
+              </a>
+              <a className="text-tertiary" href="">
+                <FontAwesomeIcon icon={faHeart} />
+              </a>
+              <a className="text-tertiary" href="">
+                <FontAwesomeIcon icon={faEye} />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       <AdditionalInfo />
