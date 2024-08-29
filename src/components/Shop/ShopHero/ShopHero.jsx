@@ -19,10 +19,10 @@ export const ShopHero = () => {
 
   return (
     <div className="bg-[#FAFAFA]">
-      <div className="w-full md:w-3/4 container pb-12 flex flex-col justify-center md:justify-between md:flex-row items-center py-4 gap-4">
+      <div className="container pb-12 flex flex-col md:flex-row justify-center md:justify-between gap-4">
         {images.map((img, index) => (
-          <div key={index} className="w-full w-1/5">
-            <img className="w-full" src={img.url} alt="" />
+          <div key={index} className="w-full md:w-1/5">
+            <img className="w-full h-full object-cover" src={img.url} alt="" />
           </div>
         ))}
       </div>

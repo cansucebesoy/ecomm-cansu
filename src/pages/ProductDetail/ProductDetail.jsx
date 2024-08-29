@@ -1,6 +1,10 @@
 import { useParams } from "react-router-dom";
 import { productInfo } from "@/constants/ProductInfo";
 import { BreadcrumbComponent } from "@/components/Shop/Breadcrumb/BreadcrumbComponent";
+import { ProductCardList } from "@/components/Home/ProductCardList/ProductCardList";
+import { Bestsellers } from "@/components/Home/Bestsellers/Bestsellers";
+import { AdditionalInfo } from "@/components/Shop/AdditionalInfo/AdditionalInfo";
+import { AdditionalText } from "@/components/Shop/AdditionalText/AdditionalText";
 
 export const ProductDetail = () => {
   const { productId } = useParams();
@@ -36,6 +40,7 @@ export const ProductDetail = () => {
             laudantium natus animi harum et.
           </p>
           <div className="flex gap-2 mb-6">
+            <img src={product.footerImg} alt="" />
             <div className="h-6 w-6 bg-orange-400 rounded-full"></div>
             <div className="h-6 w-6 bg-green-400 rounded-full"></div>
             <div className="h-6 w-6 bg-blue-400 rounded-full"></div>
@@ -46,6 +51,10 @@ export const ProductDetail = () => {
           </button>
         </div>
       </div>
+      <AdditionalInfo />
+      <AdditionalText />
+      <Bestsellers />
+      <ProductCardList />
     </>
   );
 };
