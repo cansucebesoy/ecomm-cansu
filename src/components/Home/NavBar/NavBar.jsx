@@ -26,17 +26,17 @@ const MenuLinks = [
   {
     id: 3,
     name: "About",
-    link: "/About",
+    link: "/about",
   },
   {
     id: 4,
-    name: "Blog",
-    link: "/Blog",
+    name: "Team",
+    link: "/team",
   },
   {
     id: 5,
     name: "Contact",
-    link: "/Contact",
+    link: "/contact",
   },
 ];
 

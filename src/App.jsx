@@ -6,6 +6,7 @@ import { Shop } from "./pages/Shop/Shop";
 import { PageContent } from "./layout/PageContent";
 import { ProductDetail } from "./pages/ProductDetail/ProductDetail";
 import { ContactPage } from "./pages/ContactPage/ContactPage";
+import { TeamPage } from "./pages/TeamPage/TeamPage";
 
 const routes = [
   {
@@ -15,6 +16,10 @@ const routes = [
   {
     path: "/contact",
     component: <ContactPage />,
+  },
+  {
+    path: "/team",
+    component: <TeamPage />,
   },
   {
     path: "/product/:productId",
