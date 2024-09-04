@@ -101,7 +101,7 @@ export const NavBar = () => {
                   Login
                 </a>
                 <span className="text-tertiary">/</span>
-                <a className="text-tertiary" href="">
+                <a className="text-tertiary" href="/signup">
                   Register
                 </a>
               </div>
