@@ -9,7 +9,7 @@ const initialState = {
   language: "en",
 };
 
-const clientSlice = createSlice({
+export const clientSlice = createSlice({
   name: "client",
   initialState,
   reducers: {

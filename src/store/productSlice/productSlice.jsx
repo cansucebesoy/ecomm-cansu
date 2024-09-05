@@ -10,7 +10,7 @@ const initialState = {
   fetchState: "NOT_FETCHED", //"FETCHING", "FETCHED", "FAILED"
 };
 
-const productSlice = createSlice({
+export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
