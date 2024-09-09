@@ -6,7 +6,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const MenuLinks = [
   {
@@ -47,25 +55,23 @@ export const NavBar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const history = useHistory();
-
-  const handleClick = () => {
-    history.push("/shop");
-  };
-
   return (
     <div>
       <div className="py-4">
-        <div className="container ">
-          <div className=" block items-center lg:flex lg:justify-between lg:gap-4">
+        <div className="container mx-auto">
+          {/* Flex container to align BrandName, Menu, and Icons in the same line */}
+          <div className="flex items-center justify-between">
+            {/* Brand Name (aligned to the left) */}
             <a
               className="text-primary tracking-widest font-semibold text-2xl"
               href=""
             >
               BRANDNAME
             </a>
-            <div>
-              <ul className="block text-center  text-xl lg:flex lg:items-center mt-8 lg:mt-0 space-y-4 lg:space-y-0 lg:gap-4">
+
+            {/* Menu Links (centered between BrandName and Icons) */}
+            <div className="md:flex md:justify-center md:flex-grow hidden">
+              <ul className="flex items-center space-x-8">
                 {MenuLinks.map((data, index) => (
                   <li
                     className="relative"
@@ -94,10 +100,12 @@ export const NavBar = () => {
               </ul>
             </div>
 
-            <div className="flex space-x-8 inline-block items-center ">
-              <div className="space-x-1 hidden lg:inline-block">
+            {/* Icons Section (aligned to the right) */}
+            <div className="flex items-center space-x-4">
+              {/* Login / Register (hidden on mobile, shown on desktop) */}
+              <div className="hidden md:flex items-center space-x-2">
                 <FontAwesomeIcon icon={faUser} color="#23A6F0" />
-                <a className="text-tertiary" href="">
+                <a className="text-tertiary" href="/login">
                   Login
                 </a>
                 <span className="text-tertiary">/</span>
@@ -105,24 +113,42 @@ export const NavBar = () => {
                   Register
                 </a>
               </div>
-              <div className="space-x-4 lg:flex ">
-                <a className="text-tertiary" href="">
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </a>
-                <a className="text-tertiary" href="">
-                  <FontAwesomeIcon icon={faCartShopping} />
-                </a>
-                <a href="">
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    className="hidden lg:inline-block text-tertiary"
-                  />
-                </a>
-                <a href="">
-                  <FontAwesomeIcon icon={faBars} className="lg:hidden" />
-                </a>
-              </div>
+
+              {/* Icons Section */}
+              <a className="text-tertiary" href="">
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </a>
+              <a className="text-tertiary" href="">
+                <FontAwesomeIcon icon={faCartShopping} />
+              </a>
+              <a className="text-tertiary hidden md:inline-block" href="">
+                <FontAwesomeIcon icon={faHeart} />
+              </a>
+              {/* Hamburger Menu (shown only on mobile) */}
+              <a className="md:hidden text-tertiary" href="">
+                <FontAwesomeIcon icon={faBars} />
+              </a>
             </div>
+          </div>
+
+          {/* Mobile Menu (shown only on mobile) */}
+          <div className="md:hidden mt-4">
+            <ul className="flex flex-col items-center space-y-4 text-center w-full">
+              {MenuLinks.map((data, index) => (
+                <li
+                  key={index}
+                  onMouseEnter={data.name === "Shop" ? toggleDropdown : null}
+                  onMouseLeave={data.name === "Shop" ? toggleDropdown : null}
+                >
+                  <a
+                    className="text-secondary px-4 inline-block hover:text-black"
+                    href={data.link}
+                  >
+                    {data.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

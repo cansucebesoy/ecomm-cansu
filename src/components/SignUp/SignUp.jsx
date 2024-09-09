@@ -6,6 +6,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
+import { fetchRoles } from "@/store/thunks/rolesThunk";
+import { useDispatch, useSelector } from "react-redux";
+
+const customerCode = "customer";
 
 const formDataInitial = {
   name: "",
@@ -22,9 +26,10 @@ const formDataInitial = {
 };
 
 export const SignUp = () => {
-  const [roles, setRoles] = useState([]);
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const roles = useSelector((state) => state.client.roles);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -33,17 +38,17 @@ export const SignUp = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: async () => {
-      try {
-        const response = await apiClient.get("/roles");
-        setRoles(response.data);
-        formDataInitial.role_id = 3;
-      } catch (e) {
-        console.error("Error fetching roles:", error);
+      let customerRole;
+      if (roles.length === 0) {
+        const responseData = await dispatch(fetchRoles()).unwrap();
+        customerRole = responseData.find((role) => role.code === customerCode);
+      } else {
+        customerRole = roles.find((role) => role.code === customerCode);
       }
-
+      formDataInitial.role_id = customerRole.id;
       return formDataInitial;
     },
-    mode: "onBlur",
+    mode: "all",
   });
 
   const role_id = watch("role_id");

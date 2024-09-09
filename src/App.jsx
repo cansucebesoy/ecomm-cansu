@@ -9,6 +9,7 @@ import { ContactPage } from "./pages/ContactPage/ContactPage";
 import { TeamPage } from "./pages/TeamPage/TeamPage";
 import { AboutUsPage } from "./pages/AboutUsPage/AboutUsPage";
 import { SignUpPage } from "./pages/SignUpPage/SignUpPage";
+import { LoginPage } from "./pages/LoginPage/LoginPage";
 
 const routes = [
   {
@@ -30,6 +31,10 @@ const routes = [
   {
     path: "/signup",
     component: <SignUpPage />,
+  },
+  {
+    path: "/login",
+    component: <LoginPage />,
   },
   {
     path: "/product/:productId",

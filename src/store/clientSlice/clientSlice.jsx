@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loginUser } from "../thunks/loginThunk";
 
 const initialState = {
   user: null,
@@ -25,6 +26,21 @@ export const clientSlice = createSlice({
     setLanguage: (state, action) => {
       state.language = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.loading = false;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      });
   },
 });
 
