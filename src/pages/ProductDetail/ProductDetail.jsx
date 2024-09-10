@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { productInfo } from "@/constants/ProductInfo";
+import { productInfo } from "@/constants";
 import { BreadcrumbComponent } from "@/components/Shop/Breadcrumb/BreadcrumbComponent";
 import { ProductCardList } from "@/components/Home/ProductCardList/ProductCardList";
 import { Bestsellers } from "@/components/Home/Bestsellers/Bestsellers";
