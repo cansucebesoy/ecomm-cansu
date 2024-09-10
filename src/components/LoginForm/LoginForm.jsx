@@ -21,7 +21,13 @@ export const LoginForm = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await dispatch(loginUser(data)).unwrap();
+      const user = await dispatch(loginUser(data)).unwrap();
+      const token = user.token;
+      if (token) {
+        localStorage.setItem("token", token);
+      } else {
+        sessionStorage.setItem("token", token);
+      }
       history.push("/");
     } catch (error) {
       toast.error("Login failed: " + (error.message || "Please try again"));

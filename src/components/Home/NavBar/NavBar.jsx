@@ -15,6 +15,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import md5 from "md5";
 
 const MenuLinks = [
   {
@@ -49,12 +52,19 @@ const MenuLinks = [
 ];
 
 export const NavBar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const history = useHistory();
+  const user = useSelector((state) => state.client.user);
+  console.log("userdata", user);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const handleLogout = () => {
+    dispatch(setUser(null));
+    history.push("/");
   };
 
+  const getGravatarUrl = (email) => {
+    const hash = md5(email.trim().toLowerCase());
+    return `https://www.gravatar.com/avatar/${hash}?d=identicon`;
+  };
   return (
     <div>
       <div className="py-4">
@@ -70,30 +80,37 @@ export const NavBar = () => {
             </a>
 
             {/* Menu Links (centered between BrandName and Icons) */}
-            <div className="md:flex md:justify-center md:flex-grow hidden">
+            <div className="hidden md:flex md:justify-center md:flex-grow">
               <ul className="flex items-center space-x-8">
                 {MenuLinks.map((data, index) => (
-                  <li
-                    className="relative"
-                    key={index}
-                    onMouseEnter={data.name === "Shop" ? toggleDropdown : null}
-                    onMouseLeave={data.name === "Shop" ? toggleDropdown : null}
-                  >
-                    <a
-                      className="text-secondary px-4 inline-block hover:text-black"
-                      href={data.link}
-                    >
-                      {data.name}
-                      {data.name === "Shop" && <span>&#x25BE;</span>}
-                    </a>
-                    {data.name === "Shop" && isDropdownOpen && (
-                      <ul className="absolute">
-                        {data.dropdown.map((item) => (
-                          <li key={item.id}>
-                            <a href={item.link}>{item.name}</a>
-                          </li>
-                        ))}
-                      </ul>
+                  <li className="relative" key={index}>
+                    {data.dropdown ? (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger className="text-secondary px-4 inline-block hover:text-black">
+                          {data.name} <span>&#x25BE;</span>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-48 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                          <DropdownMenuLabel className="px-4 py-2 text-gray-900">
+                            {data.name}
+                          </DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          {data.dropdown.map((item) => (
+                            <DropdownMenuItem
+                              key={item.id}
+                              className="px-4 py-2 text-gray-700 hover:bg-gray-100"
+                            >
+                              <a href={item.link}>{item.name}</a>
+                            </DropdownMenuItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    ) : (
+                      <a
+                        className="text-secondary px-4 inline-block hover:text-black"
+                        href={data.link}
+                      >
+                        {data.name}
+                      </a>
                     )}
                   </li>
                 ))}
@@ -104,14 +121,37 @@ export const NavBar = () => {
             <div className="flex items-center space-x-4">
               {/* Login / Register (hidden on mobile, shown on desktop) */}
               <div className="hidden md:flex items-center space-x-2">
-                <FontAwesomeIcon icon={faUser} color="#23A6F0" />
-                <a className="text-tertiary" href="/login">
-                  Login
-                </a>
-                <span className="text-tertiary">/</span>
-                <a className="text-tertiary" href="/signup">
-                  Register
-                </a>
+                {user ? (
+                  <>
+                    <img
+                      src={getGravatarUrl(user.email)}
+                      alt="User Avatar"
+                      className="rounded-full w-10 h-10"
+                    />
+                    <span className="text-tertiary font-semibold">
+                      {user.name}
+                    </span>
+                    <a
+                      className="text-tertiary font-semibold"
+                      onClick={handleLogout}
+                      href="/"
+                    >
+                      Logout
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <FontAwesomeIcon icon={faUser} color="#23A6F0" />
+                    <a className="text-tertiary" href="/login">
+                      Login
+                    </a>
+                    <span className="text-tertiary">/</span>
+                    <a className="text-tertiary" href="/signup">
+                      Register
+                    </a>
+                  </>
+                )}
               </div>
 
               {/* Icons Section */}
@@ -135,11 +175,7 @@ export const NavBar = () => {
           <div className="md:hidden mt-4">
             <ul className="flex flex-col items-center space-y-4 text-center w-full">
               {MenuLinks.map((data, index) => (
-                <li
-                  key={index}
-                  onMouseEnter={data.name === "Shop" ? toggleDropdown : null}
-                  onMouseLeave={data.name === "Shop" ? toggleDropdown : null}
-                >
+                <li key={index}>
                   <a
                     className="text-secondary px-4 inline-block hover:text-black"
                     href={data.link}

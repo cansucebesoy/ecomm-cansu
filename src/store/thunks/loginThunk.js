@@ -7,8 +7,8 @@ export const loginUser = createAsyncThunk(
   async (loginData, { dispatch, rejectWithValue }) => {
     try {
       const response = await apiClient.post("/login", loginData);
-      dispatch(setUser(response.data.user));
-      return response.data.user;
+      // dispatch(setUser(response.data));
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
