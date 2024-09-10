@@ -6,7 +6,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import md5 from "md5";
 
 const MenuLinks = [
   {
@@ -41,88 +52,139 @@ const MenuLinks = [
 ];
 
 export const NavBar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
   const history = useHistory();
+  const user = useSelector((state) => state.client.user);
+  console.log("userdata", user);
 
-  const handleClick = () => {
-    history.push("/shop");
+  const handleLogout = () => {
+    dispatch(setUser(null));
+    history.push("/");
   };
 
+  const getGravatarUrl = (email) => {
+    const hash = md5(email.trim().toLowerCase());
+    return `https://www.gravatar.com/avatar/${hash}?d=identicon`;
+  };
   return (
     <div>
       <div className="py-4">
-        <div className="container ">
-          <div className=" block items-center lg:flex lg:justify-between lg:gap-4">
+        <div className="container mx-auto">
+          {/* Flex container to align BrandName, Menu, and Icons in the same line */}
+          <div className="flex items-center justify-between">
+            {/* Brand Name (aligned to the left) */}
             <a
               className="text-primary tracking-widest font-semibold text-2xl"
               href=""
             >
               BRANDNAME
             </a>
-            <div>
-              <ul className="block text-center  text-xl lg:flex lg:items-center mt-8 lg:mt-0 space-y-4 lg:space-y-0 lg:gap-4">
+
+            {/* Menu Links (centered between BrandName and Icons) */}
+            <div className="hidden md:flex md:justify-center md:flex-grow">
+              <ul className="flex items-center space-x-8">
                 {MenuLinks.map((data, index) => (
-                  <li
-                    className="relative"
-                    key={index}
-                    onMouseEnter={data.name === "Shop" ? toggleDropdown : null}
-                    onMouseLeave={data.name === "Shop" ? toggleDropdown : null}
-                  >
-                    <a
-                      className="text-secondary px-4 inline-block hover:text-black"
-                      href={data.link}
-                    >
-                      {data.name}
-                      {data.name === "Shop" && <span>&#x25BE;</span>}
-                    </a>
-                    {data.name === "Shop" && isDropdownOpen && (
-                      <ul className="absolute">
-                        {data.dropdown.map((item) => (
-                          <li key={item.id}>
-                            <a href={item.link}>{item.name}</a>
-                          </li>
-                        ))}
-                      </ul>
+                  <li className="relative" key={index}>
+                    {data.dropdown ? (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger className="text-secondary px-4 inline-block hover:text-black">
+                          {data.name} <span>&#x25BE;</span>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-48 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                          <DropdownMenuLabel className="px-4 py-2 text-gray-900">
+                            {data.name}
+                          </DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          {data.dropdown.map((item) => (
+                            <DropdownMenuItem
+                              key={item.id}
+                              className="px-4 py-2 text-gray-700 hover:bg-gray-100"
+                            >
+                              <a href={item.link}>{item.name}</a>
+                            </DropdownMenuItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    ) : (
+                      <a
+                        className="text-secondary px-4 inline-block hover:text-black"
+                        href={data.link}
+                      >
+                        {data.name}
+                      </a>
                     )}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="flex space-x-8 inline-block items-center ">
-              <div className="space-x-1 hidden lg:inline-block">
-                <FontAwesomeIcon icon={faUser} color="#23A6F0" />
-                <a className="text-tertiary" href="">
-                  Login
-                </a>
-                <span className="text-tertiary">/</span>
-                <a className="text-tertiary" href="/signup">
-                  Register
-                </a>
+            {/* Icons Section (aligned to the right) */}
+            <div className="flex items-center space-x-4">
+              {/* Login / Register (hidden on mobile, shown on desktop) */}
+              <div className="hidden md:flex items-center space-x-2">
+                {user ? (
+                  <>
+                    <img
+                      src={getGravatarUrl(user.email)}
+                      alt="User Avatar"
+                      className="rounded-full w-10 h-10"
+                    />
+                    <span className="text-tertiary font-semibold">
+                      {user.name}
+                    </span>
+                    <a
+                      className="text-tertiary font-semibold"
+                      onClick={handleLogout}
+                      href="/"
+                    >
+                      Logout
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <FontAwesomeIcon icon={faUser} color="#23A6F0" />
+                    <a className="text-tertiary" href="/login">
+                      Login
+                    </a>
+                    <span className="text-tertiary">/</span>
+                    <a className="text-tertiary" href="/signup">
+                      Register
+                    </a>
+                  </>
+                )}
               </div>
-              <div className="space-x-4 lg:flex ">
-                <a className="text-tertiary" href="">
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </a>
-                <a className="text-tertiary" href="">
-                  <FontAwesomeIcon icon={faCartShopping} />
-                </a>
-                <a href="">
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    className="hidden lg:inline-block text-tertiary"
-                  />
-                </a>
-                <a href="">
-                  <FontAwesomeIcon icon={faBars} className="lg:hidden" />
-                </a>
-              </div>
+
+              {/* Icons Section */}
+              <a className="text-tertiary" href="">
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </a>
+              <a className="text-tertiary" href="">
+                <FontAwesomeIcon icon={faCartShopping} />
+              </a>
+              <a className="text-tertiary hidden md:inline-block" href="">
+                <FontAwesomeIcon icon={faHeart} />
+              </a>
+              {/* Hamburger Menu (shown only on mobile) */}
+              <a className="md:hidden text-tertiary" href="">
+                <FontAwesomeIcon icon={faBars} />
+              </a>
             </div>
+          </div>
+
+          {/* Mobile Menu (shown only on mobile) */}
+          <div className="md:hidden mt-4">
+            <ul className="flex flex-col items-center space-y-4 text-center w-full">
+              {MenuLinks.map((data, index) => (
+                <li key={index}>
+                  <a
+                    className="text-secondary px-4 inline-block hover:text-black"
+                    href={data.link}
+                  >
+                    {data.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
