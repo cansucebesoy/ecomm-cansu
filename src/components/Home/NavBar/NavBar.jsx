@@ -15,9 +15,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import md5 from "md5";
+import { setUser } from "@/store/ClientSlice/ClientSlice";
+import { logoutUser } from "@/store/thunks/logoutThunk";
 
 const MenuLinks = [
   {
@@ -52,12 +54,13 @@ const MenuLinks = [
 ];
 
 export const NavBar = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.client.user);
   console.log("userdata", user);
 
   const handleLogout = () => {
-    dispatch(setUser(null));
+    dispatch(logoutUser());
     history.push("/");
   };
 

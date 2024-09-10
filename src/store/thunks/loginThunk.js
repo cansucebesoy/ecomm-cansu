@@ -4,9 +4,17 @@ import { apiClient } from "@/services/apiClient";
 
 export const loginUser = createAsyncThunk(
   "client/loginUser", //sliceName/ActionName
-  async (loginData, { dispatch, rejectWithValue }) => {
+  async (loginData, { rejectWithValue }) => {
     try {
       const response = await apiClient.post("/login", loginData);
+      const { token } = response.data;
+      if (token) {
+        if (loginData.remember) {
+          localStorage.setItem("token", token);
+        } else {
+          sessionStorage.setItem("token", token);
+        }
+      }
       // dispatch(setUser(response.data));
       return response.data;
     } catch (error) {
