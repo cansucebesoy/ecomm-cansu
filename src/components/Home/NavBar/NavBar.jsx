@@ -20,44 +20,15 @@ import { useHistory } from "react-router-dom";
 import md5 from "md5";
 import { setUser } from "@/store/ClientSlice/ClientSlice";
 import { logoutUser } from "@/store/thunks/logoutThunk";
-
-const MenuLinks = [
-  {
-    id: 1,
-    name: "Home",
-    link: "/",
-  },
-  {
-    id: 2,
-    name: "Shop",
-    link: "/shop",
-    dropdown: [
-      { id: 1, name: "Man", link: "/shop" },
-      { id: 2, name: "Woman", link: "/shop" },
-    ],
-  },
-  {
-    id: 3,
-    name: "About",
-    link: "/about",
-  },
-  {
-    id: 4,
-    name: "Team",
-    link: "/team",
-  },
-  {
-    id: 5,
-    name: "Contact",
-    link: "/contact",
-  },
-];
+import { getMenuLinks } from "@/constants";
 
 export const NavBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.client.user);
-  console.log("userdata", user);
+  const categories = useSelector((state) => state.product.categories);
+
+  const menuLinks = getMenuLinks(categories);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -85,26 +56,45 @@ export const NavBar = () => {
             {/* Menu Links (centered between BrandName and Icons) */}
             <div className="hidden md:flex md:justify-center md:flex-grow">
               <ul className="flex items-center space-x-8">
-                {MenuLinks.map((data, index) => (
+                {menuLinks.map((data, index) => (
                   <li className="relative" key={index}>
                     {data.dropdown ? (
                       <DropdownMenu>
-                        <DropdownMenuTrigger className="text-secondary px-4 inline-block hover:text-black">
+                        <DropdownMenuTrigger className="text-secondary px-4 inline-block hover:text-black bg-white">
                           {data.name} <span>&#x25BE;</span>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-48 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
-                          <DropdownMenuLabel className="px-4 py-2 text-gray-900">
-                            {data.name}
-                          </DropdownMenuLabel>
+                        <DropdownMenuContent className="w-full mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                          <div className="flex flex-row">
+                            <div className="px-4 py-2 text-gray-900">
+                              {data.dropdown[0].name}
+                            </div>
+                            <div className="px-4 py-2 text-gray-900">
+                              {data.dropdown[1].name}
+                            </div>
+                          </div>
                           <DropdownMenuSeparator />
-                          {data.dropdown.map((item) => (
-                            <DropdownMenuItem
-                              key={item.id}
-                              className="px-4 py-2 text-gray-700 hover:bg-gray-100"
-                            >
-                              <a href={item.link}>{item.name}</a>
-                            </DropdownMenuItem>
-                          ))}
+                          <div className="flex flex-row">
+                            <div className="flex flex-col">
+                              {data.dropdown[0].items.map((item) => (
+                                <DropdownMenuItem
+                                  key={item.id}
+                                  className="px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                >
+                                  <a href={item.link}>{item.name}</a>
+                                </DropdownMenuItem>
+                              ))}
+                            </div>
+                            <div className="flex flex-col">
+                              {data.dropdown[1].items.map((item) => (
+                                <DropdownMenuItem
+                                  key={item.id}
+                                  className="px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                >
+                                  <a href={item.link}>{item.name}</a>
+                                </DropdownMenuItem>
+                              ))}
+                            </div>
+                          </div>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     ) : (
@@ -177,7 +167,7 @@ export const NavBar = () => {
           {/* Mobile Menu (shown only on mobile) */}
           <div className="md:hidden mt-4">
             <ul className="flex flex-col items-center space-y-4 text-center w-full">
-              {MenuLinks.map((data, index) => (
+              {menuLinks.map((data, index) => (
                 <li key={index}>
                   <a
                     className="text-secondary px-4 inline-block hover:text-black"

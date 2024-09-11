@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { fetchCategories } from "../thunks/categoriesThunk";
 const initialState = {
   categories: [],
   productList: [],
@@ -35,6 +35,19 @@ export const productSlice = createSlice({
     setFilter: (state, action) => {
       state.filter = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategories.pending, (state) => {
+        state.fetchState = "FETCHING";
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.fetchState = "FETCHED";
+        state.categories = action.payload;
+      })
+      .addCase(fetchCategories.rejected, (state) => {
+        state.fetchState = "FAILED";
+      });
   },
 });
 

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { useHistory } from "react-router-dom";
 
-import { productInfo } from "@/constants/ProductInfo";
+import { productInfo } from "@/constants";
 
 export const ProductList = () => {
   const history = useHistory();

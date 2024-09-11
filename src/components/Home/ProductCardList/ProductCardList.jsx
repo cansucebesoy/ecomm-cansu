@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { productInfo } from "@/constants/ProductInfo";
+import { productInfo } from "@/constants";
 
 export const ProductCardList = () => {
   return (

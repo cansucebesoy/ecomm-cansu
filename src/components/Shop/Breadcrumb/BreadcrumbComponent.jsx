@@ -10,8 +10,8 @@ import {
 
 export const BreadcrumbComponent = () => {
   return (
-    <div className="bg-[#FAFAFA] container ">
-      <div className=" md:justify-between flex justify-center p-12  md:flex-row">
+    <div className="bg-[#FAFAFA] ">
+      <div className=" container md:justify-between flex justify-center p-12  md:flex-row">
         <div className="w-full">
           <p className="text-primary font-bold ">Shop</p>
         </div>
