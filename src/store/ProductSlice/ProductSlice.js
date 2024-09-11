@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCategories } from "../thunks/categoriesThunk";
+import { fetchProducts } from "../thunks/productsThunk";
 const initialState = {
   categories: [],
   productList: [],
@@ -46,6 +47,17 @@ export const productSlice = createSlice({
         state.categories = action.payload;
       })
       .addCase(fetchCategories.rejected, (state) => {
+        state.fetchState = "FAILED";
+      })
+      .addCase(fetchProducts.pending, (state) => {
+        state.fetchState = "FETCHING";
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.fetchState = "FETCHED";
+        state.productList = action.payload.products;
+        state.total = action.payload.total;
+      })
+      .addCase(fetchProducts.rejected, (state) => {
         state.fetchState = "FAILED";
       });
   },
