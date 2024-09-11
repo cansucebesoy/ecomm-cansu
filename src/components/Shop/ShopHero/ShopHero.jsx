@@ -1,3 +1,4 @@
+import { GENDERS } from "@/constants";
 import { fetchCategories } from "@/store/thunks/categoriesThunk";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +19,7 @@ export const ShopHero = () => {
     .slice(0, 5);
 
   const handleCategoryClick = (gender, category) => {
-    history.push(`/shop/${gender}/${category}`);
+    history.push(`/shop/${GENDERS[gender]}/${category}`);
   };
   return (
     <div className="bg-[#FAFAFA]">
@@ -27,7 +28,7 @@ export const ShopHero = () => {
           topCategories.map((category) => (
             <div
               key={category.id}
-              className="w-full md:w-1/5 cursor-pointer"
+              className="w-full md:w-1/5 cursor-pointer relative"
               onClick={() =>
                 handleCategoryClick(
                   category.gender,
@@ -40,7 +41,9 @@ export const ShopHero = () => {
                 src={category.img} // Use the image URL from the 'img' field
                 alt={category.title}
               />
-              <div className="text-center  font-semibold">{category.title}</div>
+              <div className="text-center font-semibold absolute inset-0  flex justify-center items-center bg-black bg-opacity-30 text-white">{`${GENDERS[
+                category.gender
+              ].toUpperCase()} ${category.title.toUpperCase()}`}</div>
             </div>
           ))}
       </div>

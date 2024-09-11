@@ -29,7 +29,7 @@ export const NavBar = () => {
   const categories = useSelector((state) => state.product.categories);
 
   const menuLinks = getMenuLinks(categories);
-  debugger;
+
   const handleLogout = () => {
     dispatch(logoutUser());
     history.push("/");
@@ -60,22 +60,41 @@ export const NavBar = () => {
                   <li className="relative" key={index}>
                     {data.dropdown ? (
                       <DropdownMenu>
-                        <DropdownMenuTrigger className="text-secondary px-4 inline-block hover:text-black">
+                        <DropdownMenuTrigger className="text-secondary px-4 inline-block hover:text-black bg-white">
                           {data.name} <span>&#x25BE;</span>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-48 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
-                          <DropdownMenuLabel className="px-4 py-2 text-gray-900">
-                            {data.name}
-                          </DropdownMenuLabel>
+                        <DropdownMenuContent className="w-full mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                          <div className="flex flex-row">
+                            <div className="px-4 py-2 text-gray-900">
+                              {data.dropdown[0].name}
+                            </div>
+                            <div className="px-4 py-2 text-gray-900">
+                              {data.dropdown[1].name}
+                            </div>
+                          </div>
                           <DropdownMenuSeparator />
-                          {data.dropdown[0].items.map((item) => (
-                            <DropdownMenuItem
-                              key={item.id}
-                              className="px-4 py-2 text-gray-700 hover:bg-gray-100"
-                            >
-                              <a href={item.link}>{item.name}</a>
-                            </DropdownMenuItem>
-                          ))}
+                          <div className="flex flex-row">
+                            <div className="flex flex-col">
+                              {data.dropdown[0].items.map((item) => (
+                                <DropdownMenuItem
+                                  key={item.id}
+                                  className="px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                >
+                                  <a href={item.link}>{item.name}</a>
+                                </DropdownMenuItem>
+                              ))}
+                            </div>
+                            <div className="flex flex-col">
+                              {data.dropdown[1].items.map((item) => (
+                                <DropdownMenuItem
+                                  key={item.id}
+                                  className="px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                >
+                                  <a href={item.link}>{item.name}</a>
+                                </DropdownMenuItem>
+                              ))}
+                            </div>
+                          </div>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     ) : (
