@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { fetchProducts } from "@/store/thunks/productsThunk";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const ProductList = () => {
   const dispatch = useDispatch();
@@ -31,9 +32,9 @@ export const ProductList = () => {
       {productList.map((card, index) => (
         <div
           key={index}
-          className="border-none md:w-1/5 max-w-[239px] mb-4 md:mb-0"
+          className="shadow border-none md:w-1/5 max-w-[239px] mb-4 md:mb-0"
         >
-          <div className="relative w-full h-auto rounded-md overflow-hidden">
+          <div className=" relative w-full h-auto rounded-md overflow-hidden">
             <img
               className="w-full h-full object-cover"
               src={card.images[0].url}

@@ -19,10 +19,6 @@ export const ShopHero = () => {
     }
   }, [fetchState]);
 
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
-
   const topCategories = [...categories]
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 5);

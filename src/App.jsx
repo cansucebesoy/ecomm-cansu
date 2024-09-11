@@ -10,11 +10,12 @@ import { TeamPage } from "./pages/TeamPage/TeamPage";
 import { AboutUsPage } from "./pages/AboutUsPage/AboutUsPage";
 import { SignUpPage } from "./pages/SignUpPage/SignUpPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { apiClient } from "@/services/apiClient";
 import { setUser } from "./store/ClientSlice/ClientSlice";
 import { logoutUser } from "./store/thunks/logoutThunk";
+import { fetchCategories } from "./store/thunks/categoriesThunk";
 
 const routes = [
   {
@@ -51,12 +52,12 @@ const routes = [
   },
 ];
 
-// , {
-//   headers: { Authorization: token },
-// }
 function App() {
   const dispatch = useDispatch();
-
+  const categories = useSelector((state) => state.product.categories);
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, []);
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem("token");
