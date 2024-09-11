@@ -63,7 +63,7 @@ export const NavBar = () => {
                         <DropdownMenuTrigger className="text-secondary px-4 inline-block hover:text-black bg-white">
                           {data.name} <span>&#x25BE;</span>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-full mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                        <DropdownMenuContent className="w-100 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="flex flex-row">
                             <div className="px-4 py-2 text-gray-900">
                               {data.dropdown[0].name}
