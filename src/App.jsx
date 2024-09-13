@@ -19,6 +19,10 @@ import { fetchCategories } from "./store/thunks/categoriesThunk";
 
 const routes = [
   {
+    path: "/shop/:gender/:categoryName/:categoryId",
+    component: <Shop />,
+  },
+  {
     path: "/shop",
     component: <Shop />,
   },
@@ -43,7 +47,7 @@ const routes = [
     component: <LoginPage />,
   },
   {
-    path: "/product/:productId",
+    path: "/products/:productId",
     component: <ProductDetail />,
   },
   {
@@ -54,10 +58,11 @@ const routes = [
 
 function App() {
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.product.categories);
+
   useEffect(() => {
     dispatch(fetchCategories());
   }, []);
+
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem("token");
@@ -79,17 +84,6 @@ function App() {
     };
     verifyToken();
   }, []);
-
-  // const verifyToken = async () => {
-  //   try {
-  //     const response = await apiClient.get('/verify'); // /verify endpoint'ine GET isteği gönder
-  //     const user = response.data.user; // Kullanıcı bilgilerini al
-  //     dispatch(setUser(user)); // Redux store'una kullanıcı bilgilerini ekle
-  //   } catch (error) {
-  //     // Hata durumunda (örneğin, token geçersizse) kullanıcıyı çıkış yapmaya yönlendirin
-  //     console.error('Token doğrulama hatası:', error);
-  //   }
-  // };
 
   return (
     <Router>

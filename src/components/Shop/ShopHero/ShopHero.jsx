@@ -23,8 +23,8 @@ export const ShopHero = () => {
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 5);
 
-  const handleCategoryClick = (gender, category) => {
-    history.push(`/shop/${GENDERS[gender]}/${category}`);
+  const handleCategoryClick = (gender, category, categoryId) => {
+    history.push(`/shop/${GENDERS[gender]}/${category}/${categoryId}`);
   };
   return (
     <div className="bg-[#FAFAFA]">
@@ -37,7 +37,8 @@ export const ShopHero = () => {
                 onClick={() =>
                   handleCategoryClick(
                     category.gender,
-                    category.code.split(":")[1]
+                    category.code.split(":")[1],
+                    category.id
                   )
                 }
               >

@@ -10,8 +10,20 @@ import { Search } from "@/components/Shop/Search/Search";
 
 import { ShopHero } from "@/components/Shop/ShopHero/ShopHero";
 import { Views } from "@/components/Shop/Views/Views";
+import { useState } from "react";
 
 export const Shop = () => {
+  const [sort, setSort] = useState(null);
+  const [filter, setFilter] = useState(null);
+
+  const handleSortChange = (newSort) => {
+    setSort(newSort);
+  };
+
+  const handleSearch = (input) => {
+    setFilter(input);
+  };
+
   return (
     <div>
       <BreadcrumbComponent />
@@ -20,11 +32,11 @@ export const Shop = () => {
         <ProductNumber />
         <Views />
         <div className="flex justify-center">
-          <Popularity />
-          <Search />
+          <Popularity onSortChange={handleSortChange} />
+          <Search onSearch={handleSearch} />
         </div>
       </div>
-      <ProductList />
+      <ProductList sort={sort} filter={filter} />
       <CardsPagination />
       <Clients />
     </div>
