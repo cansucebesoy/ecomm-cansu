@@ -6,7 +6,9 @@ const getShopDropdownItemsByGender = (categories, gender) => {
     .map((category) => ({
       id: category.id,
       name: category.title,
-      link: `/shop/${GENDERS[gender]}/${category.code.split(":")[1]}`,
+      link: `/shop/${GENDERS[gender]}/${category.code.split(":")[1]}/${
+        category.id
+      }`,
     }));
 };
 

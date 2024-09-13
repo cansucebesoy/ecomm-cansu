@@ -10,13 +10,18 @@ import { TeamPage } from "./pages/TeamPage/TeamPage";
 import { AboutUsPage } from "./pages/AboutUsPage/AboutUsPage";
 import { SignUpPage } from "./pages/SignUpPage/SignUpPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { apiClient } from "@/services/apiClient";
 import { setUser } from "./store/ClientSlice/ClientSlice";
 import { logoutUser } from "./store/thunks/logoutThunk";
+import { fetchCategories } from "./store/thunks/categoriesThunk";
 
 const routes = [
+  {
+    path: "/shop/:gender/:categoryName/:categoryId",
+    component: <Shop />,
+  },
   {
     path: "/shop",
     component: <Shop />,
@@ -42,7 +47,7 @@ const routes = [
     component: <LoginPage />,
   },
   {
-    path: "/product/:productId",
+    path: "/products/:productId",
     component: <ProductDetail />,
   },
   {
@@ -51,11 +56,12 @@ const routes = [
   },
 ];
 
-// , {
-//   headers: { Authorization: token },
-// }
 function App() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, []);
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -78,17 +84,6 @@ function App() {
     };
     verifyToken();
   }, []);
-
-  // const verifyToken = async () => {
-  //   try {
-  //     const response = await apiClient.get('/verify'); // /verify endpoint'ine GET isteği gönder
-  //     const user = response.data.user; // Kullanıcı bilgilerini al
-  //     dispatch(setUser(user)); // Redux store'una kullanıcı bilgilerini ekle
-  //   } catch (error) {
-  //     // Hata durumunda (örneğin, token geçersizse) kullanıcıyı çıkış yapmaya yönlendirin
-  //     console.error('Token doğrulama hatası:', error);
-  //   }
-  // };
 
   return (
     <Router>

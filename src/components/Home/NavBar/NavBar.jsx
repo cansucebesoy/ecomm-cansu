@@ -21,6 +21,7 @@ import md5 from "md5";
 import { setUser } from "@/store/ClientSlice/ClientSlice";
 import { logoutUser } from "@/store/thunks/logoutThunk";
 import { getMenuLinks } from "@/constants";
+import { Link } from "react-router-dom";
 
 export const NavBar = () => {
   const dispatch = useDispatch();
@@ -80,7 +81,7 @@ export const NavBar = () => {
                                   key={item.id}
                                   className="px-4 py-2 text-gray-700 hover:bg-gray-100"
                                 >
-                                  <a href={item.link}>{item.name}</a>
+                                  <Link to={item.link}>{item.name}</Link>
                                 </DropdownMenuItem>
                               ))}
                             </div>
@@ -90,7 +91,7 @@ export const NavBar = () => {
                                   key={item.id}
                                   className="px-4 py-2 text-gray-700 hover:bg-gray-100"
                                 >
-                                  <a href={item.link}>{item.name}</a>
+                                  <Link to={item.link}>{item.name}</Link>
                                 </DropdownMenuItem>
                               ))}
                             </div>
@@ -98,12 +99,12 @@ export const NavBar = () => {
                         </DropdownMenuContent>
                       </DropdownMenu>
                     ) : (
-                      <a
+                      <Link
                         className="text-secondary px-4 inline-block hover:text-black"
-                        href={data.link}
+                        to={data.link}
                       >
                         {data.name}
-                      </a>
+                      </Link>
                     )}
                   </li>
                 ))}
@@ -169,12 +170,12 @@ export const NavBar = () => {
             <ul className="flex flex-col items-center space-y-4 text-center w-full">
               {menuLinks.map((data, index) => (
                 <li key={index}>
-                  <a
+                  <Link
                     className="text-secondary px-4 inline-block hover:text-black"
-                    href={data.link}
+                    to={data.link}
                   >
                     {data.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
