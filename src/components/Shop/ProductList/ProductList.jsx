@@ -1,18 +1,8 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { useHistory } from "react-router-dom";
-
 import { useSelector } from "react-redux";
 import { fetchProducts } from "@/store/thunks/productsThunk";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 
 const sortProducts = (products, sort) => {
   if (sort === "price:asc") {
@@ -45,11 +35,15 @@ export const ProductList = ({ sort, filter }) => {
 
   const { categoryId } = useParams();
 
+  // const location = useLocation();
+  // const searchParams = new URLSearchParams(location.search);
+  // const sort = searchParams.get("sort");
+  // const filter = searchParams.get("filter");
+
   useEffect(() => {
     dispatch(fetchProducts(categoryId, sort, filter));
   }, [categoryId, sort, filter, dispatch]);
 
-  // const sortedProductList = sortProducts(productList, sort);
   const filteredProductList = filterProducts(productList, filter);
   const sortedProductList = sortProducts(filteredProductList, sort);
 

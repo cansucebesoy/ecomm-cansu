@@ -10,18 +10,27 @@ import { Search } from "@/components/Shop/Search/Search";
 
 import { ShopHero } from "@/components/Shop/ShopHero/ShopHero";
 import { Views } from "@/components/Shop/Views/Views";
-import { useState } from "react";
+import {
+  useHistory,
+  useLocation,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 export const Shop = () => {
-  const [sort, setSort] = useState(null);
-  const [filter, setFilter] = useState(null);
+  const history = useHistory();
+  const location = useLocation();
 
-  const handleSortChange = (newSort) => {
-    setSort(newSort);
+  const searchParams = new URLSearchParams(location.search);
+  const sort = searchParams.get("sort");
+  const filter = searchParams.get("filter");
+
+  const handleSort = (newSort) => {
+    searchParams.set("sort", newSort);
+    history.push(`products?${searchParams.toString()}`);
   };
 
-  const handleSearch = (input) => {
-    setFilter(input);
+  const handleFilter = (newFilter) => {
+    searchParams.set("filter", newFilter);
+    history.push(`products?${searchParams.toString()}`);
   };
 
   return (
@@ -32,8 +41,8 @@ export const Shop = () => {
         <ProductNumber />
         <Views />
         <div className="flex justify-center">
-          <Popularity onSortChange={handleSortChange} />
-          <Search onSearch={handleSearch} />
+          <Popularity onSortChange={handleSort} />
+          <Search onSearch={handleFilter} />
         </div>
       </div>
       <ProductList sort={sort} filter={filter} />
